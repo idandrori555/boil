@@ -3,15 +3,10 @@
 set -e
 
 # Config
-BOIL_SCRIPT="boil"          # path to your local boil script
+BOIL_URL="https://raw.githubusercontent.com/idandrori555/boil/refs/heads/main/boil"
 INSTALL_DIR="$HOME/.boil"   # folder for templates
 BIN_DIR="/usr/local/bin"    # global location
-
-# Check if boil script exists
-if [ ! -f "$BOIL_SCRIPT" ]; then
-  echo "❌ Error: $BOIL_SCRIPT not found in current directory."
-  exit 1
-fi
+BOIL_TMP="$(mktemp)"        # temporary file for downloading
 
 # 1. Create templates folder
 if [ ! -d "$INSTALL_DIR" ]; then
@@ -21,19 +16,25 @@ else
   echo "ℹ️ Templates directory already exists at $INSTALL_DIR"
 fi
 
-# 2. Copy the script to /usr/local/bin
+# 2. Download boil
+echo "⬇️ Downloading 'boil' from GitHub..."
+curl -fsSL "$BOIL_URL" -o "$BOIL_TMP"
+chmod +x "$BOIL_TMP"
+echo "✅ Downloaded 'boil'"
+
+# 3. Copy to /usr/local/bin
 if [ "$(id -u)" -ne 0 ]; then
   echo "⚠️ Copying to $BIN_DIR requires sudo privileges."
-  sudo cp "$BOIL_SCRIPT" "$BIN_DIR/"
-  sudo chmod +x "$BIN_DIR/$(basename $BOIL_SCRIPT)"
+  sudo cp "$BOIL_TMP" "$BIN_DIR/boil"
 else
-  cp "$BOIL_SCRIPT" "$BIN_DIR/"
-  chmod +x "$BIN_DIR/$(basename $BOIL_SCRIPT)"
+  cp "$BOIL_TMP" "$BIN_DIR/boil"
 fi
+chmod +x "$BIN_DIR/boil"
+
+# 4. Clean up
+rm -f "$BOIL_TMP"
 
 echo "✅ Installed 'boil' to $BIN_DIR"
-
-# 3. Done
 echo "🎉 Installation complete! You can now run 'boil <template-name>' from anywhere."
 echo "Templates folder: $INSTALL_DIR"
 
