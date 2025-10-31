@@ -18,7 +18,7 @@
 Install **Boil** in one line (no cloning of the repo needed):
 
 ```bash
-/bin/bash -c "$(wget -qO- https://raw.githubusercontent.com/idandrori555/boil/refs/heads/main/install)"
+/bin/bash -c "$(wget --no-cache -qO- https://raw.githubusercontent.com/idandrori555/boil/refs/heads/main/install)"
 ```
 
 This will automatically download and set up `boil` for you.
