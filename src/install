@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+set -e
+
+# Config
+BOIL_SCRIPT="boil"          # path to your local boil script
+INSTALL_DIR="$HOME/.boil"   # folder for templates
+BIN_DIR="/usr/local/bin"    # global location
+
+# Check if boil script exists
+if [ ! -f "$BOIL_SCRIPT" ]; then
+  echo "❌ Error: $BOIL_SCRIPT not found in current directory."
+  exit 1
+fi
+
+# 1. Create templates folder
+if [ ! -d "$INSTALL_DIR" ]; then
+  mkdir -p "$INSTALL_DIR"
+  echo "✅ Created templates directory at $INSTALL_DIR"
+else
+  echo "ℹ️ Templates directory already exists at $INSTALL_DIR"
+fi
+
+# 2. Copy the script to /usr/local/bin
+if [ "$(id -u)" -ne 0 ]; then
+  echo "⚠️ Copying to $BIN_DIR requires sudo privileges."
+  sudo cp "$BOIL_SCRIPT" "$BIN_DIR/"
+  sudo chmod +x "$BIN_DIR/$(basename $BOIL_SCRIPT)"
+else
+  cp "$BOIL_SCRIPT" "$BIN_DIR/"
+  chmod +x "$BIN_DIR/$(basename $BOIL_SCRIPT)"
+fi
+
+echo "✅ Installed 'boil' to $BIN_DIR"
+
+# 3. Done
+echo "🎉 Installation complete! You can now run 'boil <template-name>' from anywhere."
+echo "Templates folder: $INSTALL_DIR"
+
