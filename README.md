@@ -15,73 +15,13 @@
 
 ## Installation
 
-1. Clone or download this repository
-2. Run the installer:
+Install **Boil** in one line (no cloning of the repo needed):
 
 ```bash
-./install
+/bin/bash -c "$(wget -qO- https://raw.githubusercontent.com/idandrori555/boil/refs/heads/main/install)"
 ```
 
----
-
-## Usage
-
-### 1. Show help
-
-```bash
-boil --help
-```
-
-### 2. List templates
-
-```bash
-boil --ls
-```
-
-### 3. Add a new template
-
-```bash
-boil --new <folder_or_file>
-```
-
-Example:
-
-```bash
-boil --new ./mymake
-```
-
-### 4. Generate files from a template
-
-```bash
-boil <template-name>
-```
-
-Example:
-
-```bash
-boil mymake
-```
-
-This will copy the contents of `~/.boil/mymake` into your current directory.
-
----
-
-## Template Structure
-
-Templates can be a **single file** or a **folder** with multiple files.
-Example structure:
-
-```
-~/.boil/
- ├── mymake/
- │    └── Makefile
- ├── cpp-basic/
- │    ├── main.cpp
- │    └── Makefile
- └── web/
-      ├── index.html
-      └── style.css
-```
+This will automatically download and set up `boil` for you.
 
 ---
 
@@ -95,3 +35,4 @@ Contributions are welcome!
 ---
 
 **Boil** – save time, stop repeating yourself! 🔥
+
