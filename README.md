@@ -47,7 +47,7 @@ boil --new <folder_or_file>
 Example:
 
 ```bash
-boil --new ~/projects/mymake
+boil --new ./mymake
 ```
 
 ### 4. Generate files from a template
