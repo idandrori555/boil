@@ -26,6 +26,7 @@ echo "✅ Downloaded 'boil'"
 if [ "$(id -u)" -ne 0 ]; then
   echo "⚠️ Copying to $BIN_DIR requires sudo privileges."
   sudo cp "$BOIL_TMP" "$BIN_DIR/boil"
+  sudo chown "$(whoami)" "$BIN_DIR/boil"
 else
   cp "$BOIL_TMP" "$BIN_DIR/boil"
 fi
